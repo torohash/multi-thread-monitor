@@ -18,5 +18,5 @@ fn main() {
     for handle in handles {
         handle.join().unwrap();
     }
-    thread::sleep(Duration::from_secs(2)); // 2秒メインスレッド終了を待つ
+    thread::sleep(Duration::from_secs(1)); // 1秒メインスレッド終了を待つ
 }

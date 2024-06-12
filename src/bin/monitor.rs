@@ -1,9 +1,8 @@
 use std::process::Command;
 use std::io::{self, Write};
-use tokio::time::{sleep, Duration};
 use std::env;
 
-async fn get_tids(pid: u32) -> Vec<u32> {
+fn get_tids(pid: u32) -> Vec<u32> {
     let output = Command::new("ps")
         .args(&["-T", "-p", &pid.to_string()])
         .output()
@@ -23,8 +22,7 @@ async fn get_tids(pid: u32) -> Vec<u32> {
     tids
 }
 
-#[tokio::main]
-async fn main() {
+fn main() {
     let pid = env::args()
         .nth(1)
         .expect("Please provide a PID")
@@ -32,13 +30,14 @@ async fn main() {
         .expect("Invalid PID");
 
     loop {
-        let tids = get_tids(pid).await;
+        let tids = get_tids(pid);
         print!("\x1B[2J\x1B[1;1H"); // 画面をクリア
         println!("PID: {}", pid);
         println!("TIDs: {:?}", tids);
 
         io::stdout().flush().unwrap();
-        sleep(Duration::from_secs(1)).await; // 1秒ごとに更新
+        // 1秒待機
+        std::thread::sleep(std::time::Duration::from_secs(1));
 
         if tids.len() == 0 {
             break;
