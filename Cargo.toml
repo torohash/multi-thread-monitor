@@ -1,0 +1,28 @@
+[package]
+name = "thread_monitor"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+libc = "0.2.155"
+tokio = { version = "1", features = ["full"] }
+
+[[bin]]
+name = "tokio_thread"
+path = "src/bin/tokio_thread.rs"
+
+[[bin]]
+name = "tokio_monitor"
+path = "src/bin/tokio_monitor.rs"
+
+[[bin]]
+name = "tokio_worker_check"
+path = "src/bin/tokio_worker_check.rs"
+
+[[bin]]
+name = "thread"
+path = "src/bin/thread.rs"
+
+[[bin]]
+name = "monitor"
+path = "src/bin/monitor.rs"
